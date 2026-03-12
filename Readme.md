@@ -64,6 +64,7 @@ Performs document analysis and generates structured outputs used for legal and c
 
 
 ## Project Structure
+```
 /ai-risk-analyzer
 │
 ├── /mobile_app # Flutter source code
@@ -79,8 +80,8 @@ Performs document analysis and generates structured outputs used for legal and c
 │ └── prompt.py # AI System Instructions & Prompt Engineering
 │
 └── /docs # Documentation & System Diagrams
-
-
+```
+---
 
 ## Installation & Setup
 
@@ -246,4 +247,5 @@ This project is licensed under the **MIT License**. You are free to use, modify,
 
 **Ram Prahasith Sharma**  
 MSc Data Science, DAU.
+
 
