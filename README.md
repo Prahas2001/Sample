@@ -1,33 +1,31 @@
-# 📱 Mobile App (Flutter)
+# 🌐 Web Dashboard
 
-> **Cross-platform legal risk analyzer for on-the-go document auditing**
+> **Professional, action-first workspace for instant legal document risk analysis**
 
-Native Android/iOS application built with Flutter, delivering 60fps performance and enterprise-grade security for mobile contract analysis.
+A lightweight, browser-based interface that connects users directly to AI-powered contract auditing—no downloads, no installation, just results.
 
 ---
 
 ## ⚡ What It Does
 
-- **Native Performance** – AOT compilation ensures smooth animations and instant responsiveness
-- **AWS Amplify Integration** – Secure auth + S3 uploads via official Flutter SDK
-- **Real-time Feedback** – Brand Amber (#B45309) scanning animations during analysis
-- **Production Security** – R8 code shrinking and obfuscation for minimal attack surface
+- **Secure Authentication** – AWS Cognito-powered login with isolated user sessions
+- **Direct S3 Upload** – Files stream securely to user-specific prefixes using AWS SDK v2
+- **Live Risk Breakdown** – Color-coded severity cards (High/Medium/Low) update in real-time
+- **Zero Backend Dependency** – Pure static frontend hosted on S3 with CloudFront CDN
 
 ---
 
 ## 🗂️ Structure
 ```
-app/
-├── android/              # Native Android config + ProGuard rules
-├── ios/                  # Native iOS config (future release)
-├── lib/
-│   ├── models/           # Data structures (RiskItem, AnalysisResult)
-│   └── main.dart         # Core app logic + Heritage Navy UI
+web/
 ├── assets/
-│   └── images/           # Brand assets and app icons
-├── pubspec.yaml          # Flutter dependencies
-├── .gitignore            # Excludes build/ and .idea/
-└── README.md             # You are here
+│   └── images/       # Logo and branding assets
+├── index.html        # Landing page
+├── login.html        # Sign in interface
+├── register.html     # Sign up interface
+├── dashboard.html    # Analysis workspace
+├── .env.example      # AWS configuration template
+└── README.md         # You are here
 
 ```
 
@@ -35,112 +33,67 @@ app/
 
 ## 🚀 Quick Start
 
-### 1. Prerequisites
+### 1. Configure AWS Credentials
 
-Ensure Flutter is installed and configured:
+Copy `.env.example` and fill in your AWS details:
+```env
+IDENTITY_POOL_ID=us-east-1:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+USER_POOL_ID=us-east-1_XXXXXXXXX
+BUCKET_NAME=risk-analysing-app-data
+REGION=us-east-1
+```
+
+Alternatively, update the constants directly in the HTML files (search for `AWS.config`).
+
+### 2. Launch Locally
 ```bash
-flutter doctor
-# All checks should pass (Android toolchain, VS Code/Android Studio)
+# Option A: Open directly
+open index.html
+
+# Option B: Use a local server (recommended for testing)
+python -m http.server 8000
+# Then visit: http://localhost:8000
 ```
 
-### 2. Install Dependencies
+### 3. Deploy to Production
 ```bash
-flutter pub get
-```
+# Sync to S3
+aws s3 sync . s3://your-bucket-name --exclude ".git/*" --exclude "*.md"
 
-### 3. Configure AWS
-
-Update `amplifyconfig` in `lib/main.dart` with your credentials:
-```dart
-final amplifyconfig = '''{
-  "UserAgent": "aws-amplify-cli/2.0",
-  "Version": "1.0",
-  "auth": {
-    "plugins": {
-      "awsCognitoAuthPlugin": {
-        "UserPoolId": "us-east-1_XXXXXXXXX",        // ← Your User Pool
-        "IdentityPoolId": "us-east-1:xxxxx...",      // ← Your Identity Pool
-        "Region": "us-east-1"
-      }
-    }
-  },
-  "storage": {
-    "plugins": {
-      "awsS3StoragePlugin": {
-        "bucket": "risk-analysing-app-data",         // ← Your Bucket
-        "region": "us-east-1"
-      }
-    }
-  }
-}''';
-```
-
-### 4. Run on Device
-
-Connect an Android device via USB (enable Developer Mode + USB Debugging):
-```bash
-# Check device connection
-flutter devices
-
-# Launch in release mode
-flutter run --release
-```
-
----
-
-## 📦 Building the APK
-
-### Generate Release Build
-```bash
-flutter build apk --release
-```
-
-**Output**: `build/app/outputs/flutter-apk/app-release.apk` (~70MB)
-
-### What Happens During Build
-
-1. **Icon Tree-Shaking** – Reduces Material Icons from 1.6MB → 4KB
-2. **R8 Code Shrinking** – Removes unused code and obfuscates classes
-3. **ProGuard Rules Applied** – Custom rules suppress AWS/Crypto warnings
-
----
-
-## 🔧 Build Optimization Details
-
-### ProGuard Configuration
-
-The release build uses custom rules in `android/app/proguard-rules.pro` to handle missing annotations from AWS Amplify and Google Tink:
-```proguard
--dontwarn com.google.errorprone.annotations.**
--dontwarn javax.annotation.**
--dontwarn org.checkerframework.**
-```
-
-Without these rules, R8 throws warnings that prevent successful APK generation.
-
-### Gradle Configuration
-
-Key settings in `android/app/build.gradle`:
-```gradle
-buildTypes {
-    release {
-        minifyEnabled true
-        shrinkResources true
-        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        signingConfig signingConfigs.release
-    }
-}
+# Enable static website hosting in S3 bucket settings
+# Set index.html as the index document
 ```
 
 ---
 
 ## 🔐 Security
 
-- **No API Keys in Code** – All AWS credentials managed via Cognito temporary tokens
-- **Identity Isolation** – Each user's documents stored in isolated S3 prefixes
-- **In-Memory Processing** – Documents analyzed in real-time; no persistent local storage
-- **HTTPS-Only** – All S3 uploads encrypted in transit
-- **Code Obfuscation** – R8 makes reverse engineering significantly harder
+- **User Isolation**: Cognito Identity IDs ensure users only access their own documents
+- **CORS Policy Required**: Your S3 bucket must allow requests from your hosted domain
+- **No API Keys in Code**: All AWS credentials are managed via Cognito temporary credentials
+
+### Example S3 CORS Configuration
+```json
+[
+  {
+    "AllowedHeaders": ["*"],
+    "AllowedMethods": ["GET", "PUT", "POST"],
+    "AllowedOrigins": ["https://yourdomain.com"],
+    "ExposeHeaders": ["ETag"]
+  }
+]
+```
+
+---
+
+## 🎨 Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| **HTML5/CSS3** | Structure & styling |
+| **Bootstrap 5** | Responsive grid & components |
+| **AWS SDK v2 (JS)** | Cognito auth + S3 uploads |
+| **Vanilla JavaScript** | No frameworks = faster load times |
 
 ---
 
@@ -148,44 +101,19 @@ buildTypes {
 
 | Issue | Solution |
 |-------|----------|
-| `flutter doctor` fails | Install Android Studio and accept SDK licenses |
-| ProGuard warnings | Ensure `proguard-rules.pro` exists with AWS exclusions |
-| APK won't install | Check Android version (requires API 21+) |
-| Cognito auth fails | Verify `amplifyconfig` credentials in `main.dart` |
-| Upload freezes | Check internet connection and S3 bucket permissions |
+| "Identity Pool not authorized" | Check IAM roles attached to your Cognito Identity Pool |
+| CORS errors on upload | Verify S3 bucket CORS policy matches your domain |
+| Dashboard blank after login | Check browser console for Cognito token errors |
 
 ---
 
-## 📱 Supported Platforms
+## 📝 Next Steps
 
-| Platform | Status | Min Version |
-|----------|--------|-------------|
-| **Android** | ✅ Released | API 21 (Android 5.0) |
-| **iOS** | 🚧 Planned | iOS 12+ |
-
----
-
-## 📝 Current Version
-
-**v1.0.0** – Initial production release
-
-### Release Notes
-- ✅ AWS Cognito authentication
-- ✅ S3 document upload with progress indicator
-- ✅ Real-time risk analysis via Lambda
-- ✅ Color-coded severity cards (High/Medium/Low)
-- ✅ Heritage Navy + Brand Amber theming
+- [ ] Add CloudFront distribution for HTTPS + global CDN
+- [ ] Implement session timeout warnings
+- [ ] Add file type validation on the frontend
 
 ---
 
-## 🎯 Next Steps
-
-- [ ] Add iOS build configuration
-- [ ] Implement biometric authentication
-- [ ] Add offline document queue
-- [ ] Integrate push notifications for analysis completion
-
----
-
-**Download APK**: [releases/mobile/LegalRisk_v1.0.apk](../../releases/mobile/LegalRisk_v1.0.apk)  
+**Live Demo**: [Your deployed URL here]  
 **Issues?** [Open an issue](../../issues) or check the main [project README](../../README.md)
