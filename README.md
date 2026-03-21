@@ -233,7 +233,7 @@ This project is licensed under the **MIT License** - see [LICENSE](LICENSE) for 
 MSc Data Science, DA-IICT
 
 📧 Email: [ramprahasith01@gmail.com]  
-🔗 LinkedIn: [linkedin.com/in/ram-prahasith-sharma-87a8662a6/]  
+🔗 LinkedIn: [https://www.linkedin.com/in/ram-prahasith-sharma-87a8662a6/]  
 🐙 GitHub: [Prahas2001](https://github.com/Prahas2001)
 
 ---
