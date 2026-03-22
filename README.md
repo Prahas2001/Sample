@@ -44,7 +44,7 @@ Built with a professional **Heritage Navy (#0F172A)** and **Brand Amber (#B45309
 
 ## 🏗️ Architecture
 ```
-┌─────────────┐          ┌──────────────┐
+      ┌─────────────┐          ┌──────────────┐
       │   Mobile    │          │     Web      │
       │  (Flutter)  │          │  Dashboard   │
       └──────┬──────┘          └──────┬───────┘
