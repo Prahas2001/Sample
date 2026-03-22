@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Legal Risk Analyzer - Final Identity</title>
+    <style>
+        :root {
+            --heritage-navy: #0f172a;
+            /* MATCHED BRAND COLOR */
+            --brand-amber: #b45309; 
+            --amber-glow: rgba(180, 83, 9, 0.5);
+            --legal-text: #1e293b;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 40px;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        /* THE ICON BOX */
+        .icon-box {
+            width: 56px;
+            height: 56px;
+            background: var(--heritage-navy);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-weight: 900;
+            font-size: 18px;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        /* THE MATCHED AMBER LASER */
+        .laser-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            /* Exact match to the ANALYZER text color */
+            background: var(--brand-amber); 
+            /* Subtle matched glow to prevent red bleed */
+            box-shadow: 
+                0 0 5px var(--brand-amber),
+                0 0 12px var(--amber-glow);
+            z-index: 10;
+            animation: highSpeedScan 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes highSpeedScan {
+            0% { top: -5%; opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { top: 105%; opacity: 0; }
+        }
+
+        /* TEXT STYLING */
+        .brand-text {
+            font-size: 28px;
+            color: var(--legal-text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-text span.light {
+            font-weight: 400;
+            color: #64748b;
+        }
+
+        .brand-text span.bold {
+            font-weight: 900;
+            color: var(--heritage-navy);
+            letter-spacing: 1.5px;
+        }
+
+        .brand-text span.accent {
+            color: var(--brand-amber);
+            font-weight: 900;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="logo-container">
+        <div class="icon-box">
+            <div class="laser-line"></div>
+            AI
+        </div>
+
+        <div class="brand-text">
+            <span class="light">Legal Risk</span> <span class="bold accent">Analyzer</span>
+        </div>
+    </div>
+
+</body>
+</html>

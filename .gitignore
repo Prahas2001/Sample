@@ -1,0 +1,99 @@
+# ==========================================
+# IDEs and Editors
+# ==========================================
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+*~
+
+# ==========================================
+# Flutter/Dart
+# ==========================================
+app/.dart_tool/
+app/.flutter-plugins
+app/.flutter-plugins-dependencies
+app/.metadata
+app/.packages
+app/build/
+app/ios/Flutter/flutter_export_environment.sh
+app/ios/Pods/
+app/ios/.symlinks/
+app/android/.gradle/
+app/android/app/build/
+app/android/local.properties
+app/android/key.properties
+app/pubspec.lock  
+app/lib/amplifyconfiguration.dart 
+
+# Local Development APKs (Exclude from repo)
+app/*.apk
+app/*.aab
+
+# ==========================================
+# Web
+# ==========================================
+web/.env
+web/node_modules/
+web/dist/
+web/build/
+
+# ==========================================
+# Backend/Python
+# ==========================================
+backend/lambda/__pycache__/
+backend/lambda/*.pyc
+backend/lambda/.pytest_cache/
+backend/lambda/venv/
+backend/lambda/env/
+backend/lambda/*.zip
+backend/lambda/python/
+backend/.env
+.env
+*.env
+
+# ==========================================
+# Lambda layer artifacts
+# ==========================================
+backend/lambda/layer.zip
+backend/lambda/function.zip
+
+# ==========================================
+# AWS & Credentials (CRITICAL)
+# ==========================================
+**/credentials.json
+**/config.json
+**/.aws/
+*.pem
+*.key
+
+# ==========================================
+# Documentation Build Artifacts
+# ==========================================
+docs/_build/
+docs/.doctrees/
+
+# ==========================================
+# OS Files
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ==========================================
+# Logs & Temp
+# ==========================================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.tmp
+*.temp
+*.bak
+*.cache
